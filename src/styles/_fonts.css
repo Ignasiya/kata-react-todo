@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Helvetica Neue';
-  src: url('assets/fonts/HelveticaNeueCyr-UltraLight.woff2') format('woff2');
+  src: url('/fonts/HelveticaNeueCyr-UltraLight.woff2') format('woff2');
   font-weight: 200;
   font-style: normal;
   font-display: swap;
@@ -8,7 +8,7 @@
 
 @font-face {
   font-family: 'Helvetica Neue';
-  src: url('assets/fonts/HelveticaNeueCyr-Light.woff2') format('woff2');
+  src: url('/fonts/HelveticaNeueCyr-Light.woff2') format('woff2');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -16,7 +16,7 @@
 
 @font-face {
   font-family: 'Helvetica Neue';
-  src: url('assets/fonts/HelveticaNeueCyr-Roman.woff2') format('woff2');
+  src: url('/fonts/HelveticaNeueCyr-Roman.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
