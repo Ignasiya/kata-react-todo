@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import { formatDistanceToNow } from 'date-fns'
 import './task.css'
 
-const Task = ({ description, created, completed, editing }) => {
+export default function Task({ description, created, completed, editing }) {
   const timeAgo = formatDistanceToNow(created, { addSuffix: true })
 
   return (
@@ -27,5 +27,3 @@ Task.propTypes = {
   completed: PropTypes.bool,
   editing: PropTypes.bool
 }
-
-export default Task

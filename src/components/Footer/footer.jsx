@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import './footer.css'
 
-const Footer = ({ children, count }) => {
+export default function Footer({ children, count }) {
   return (
     <footer className='footer'>
       <span className='todo-count'>{count} items left</span>
@@ -17,5 +17,3 @@ Footer.propTypes = {
   children: PropTypes.node.isRequired,
   count: PropTypes.number.isRequired
 }
-
-export default Footer

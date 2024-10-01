@@ -4,7 +4,7 @@ import Footer from '@/components/Footer'
 import TasksFilter from '@/components/TasksFilter'
 import './task-layout.css'
 
-const TaskLayout = () => {
+export default function TaskLayout() {
   const tasks = [
     {
       id: 1,
@@ -41,5 +41,3 @@ const TaskLayout = () => {
     </section>
   )
 }
-
-export default TaskLayout

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import Task from '@/components/Task'
 import './task-list.css'
 
-const TaskList = ({ tasks }) => {
+export default function TaskList({ tasks }) {
   return (
     <ul className='todo-list'>
       {tasks.map(task => {
@@ -24,5 +24,3 @@ TaskList.propTypes = {
     })
   )
 }
-
-export default TaskList

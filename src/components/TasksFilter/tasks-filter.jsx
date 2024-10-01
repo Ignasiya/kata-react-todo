@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './tasks-filter.css'
 
-const TasksFilter = () => {
+export default function TasksFilter() {
   const [filter, setFilter] = useState('All')
 
   const handleClick = filter => {
@@ -28,5 +28,3 @@ const TasksFilter = () => {
     </ul>
   )
 }
-
-export default TasksFilter
