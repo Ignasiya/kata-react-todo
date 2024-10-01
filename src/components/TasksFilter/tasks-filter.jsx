@@ -17,7 +17,7 @@ export default function TasksFilter() {
           <li key={label} className='filters__item'>
             <button
               type='button'
-              className={`filters__btn ${filter === 'All' ? 'selected' : ''}`}
+              className={`filters__btn ${filter === label ? 'selected' : ''}`}
               onClick={() => handleClick(label)}
             >
               {label}
