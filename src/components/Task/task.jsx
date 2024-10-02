@@ -1,20 +1,29 @@
 import PropTypes from 'prop-types'
 import { formatDistanceToNow } from 'date-fns'
+import { useState } from 'react'
 import './task.css'
 
-export default function Task({ description, created, completed, editing }) {
+export default function Task({ description, created, completed, onCompeted, onDeleted }) {
   const timeAgo = formatDistanceToNow(created, { addSuffix: true })
+
+  const [editing, setEditing] = useState(false)
 
   return (
     <li className={completed ? 'completed' : editing ? 'editing' : ''}>
       <div className='view'>
-        <input className='toggle' type='checkbox' checked={completed} readOnly />
+        <input
+          className='toggle'
+          type='checkbox'
+          checked={completed}
+          onClick={onCompeted}
+          readOnly
+        />
         <label>
           <span className='description'>{description}</span>
           <span className='created'>created {timeAgo}</span>
         </label>
         <button className='icon icon-edit'></button>
-        <button className='icon icon-destroy'></button>
+        <button className='icon icon-destroy' onClick={onDeleted}></button>
       </div>
       {editing && <input type='text' className='edit' defaultValue={description} />}
     </li>
