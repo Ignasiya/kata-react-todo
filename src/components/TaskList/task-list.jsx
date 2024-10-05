@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import Task from '@/components/Task'
 import './task-list.css'
 
-export default function TaskList({ tasks, onCompeted, onDeleted }) {
+export default function TaskList({ tasks, onCompeted, onDeleted, onUpdate }) {
   return (
     <ul className='todo-list'>
       {tasks.map(task => {
@@ -13,6 +13,7 @@ export default function TaskList({ tasks, onCompeted, onDeleted }) {
             {...taskData}
             onCompeted={() => onCompeted(id)}
             onDeleted={() => onDeleted(id)}
+            onUpdate={updatedText => onUpdate(id, updatedText)}
           />
         )
       })}

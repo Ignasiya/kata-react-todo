@@ -29,6 +29,6 @@
   border-color: rgba(175, 47, 47, 0.1);
 }
 
-.filters__btn .selected {
+.filters__btn.selected {
   border-color: rgba(175, 47, 47, 0.2);
 }

@@ -1,13 +1,6 @@
-import { useState } from 'react'
 import './tasks-filter.css'
 
-export default function TasksFilter() {
-  const [filter, setFilter] = useState('All')
-
-  const handleClick = filter => {
-    setFilter(filter)
-  }
-
+export default function TasksFilter({ onFilterChange, selectFilter }) {
   const labels = ['All', 'Active', 'Completed']
 
   return (
@@ -17,8 +10,8 @@ export default function TasksFilter() {
           <li key={label} className='filters__item'>
             <button
               type='button'
-              className={`filters__btn ${filter === label ? 'selected' : ''}`}
-              onClick={() => handleClick(label)}
+              className={`filters__btn ${selectFilter === label ? 'selected' : ''}`}
+              onClick={() => onFilterChange(label)}
             >
               {label}
             </button>
