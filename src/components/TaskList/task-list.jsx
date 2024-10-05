@@ -24,11 +24,20 @@ export default function TaskList({ tasks, onCompeted, onDeleted, onUpdate }) {
 TaskList.propTypes = {
   tasks: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      created: PropTypes.number,
-      description: PropTypes.string,
-      completed: PropTypes.bool,
-      editing: PropTypes.bool
+      id: PropTypes.string.isRequired,
+      created: PropTypes.number.isRequired,
+      description: PropTypes.string.isRequired,
+      completed: PropTypes.bool.isRequired
     })
-  )
+  ).isRequired,
+  onCompeted: PropTypes.func,
+  onDeleted: PropTypes.func,
+  onUpdate: PropTypes.func
+}
+
+TaskList.defaultProps = {
+  tasks: [],
+  onCompeted: () => {},
+  onDeleted: () => {},
+  onUpdate: () => {}
 }

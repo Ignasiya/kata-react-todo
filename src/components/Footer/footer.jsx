@@ -16,6 +16,13 @@ export default function Footer({ children, count, onAllCompleateDeleted }) {
 }
 
 Footer.propTypes = {
-  children: PropTypes.node.isRequired,
-  count: PropTypes.number.isRequired
+  children: PropTypes.node,
+  count: PropTypes.number,
+  onAllCompleateDeleted: PropTypes.func
+}
+
+Footer.defaultProps = {
+  children: null,
+  count: 0,
+  onAllCompleateDeleted: () => {}
 }

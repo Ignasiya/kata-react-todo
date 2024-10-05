@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import PropTypes from 'prop-types'
 import './new-task-form.css'
 
 export default function NewTaskForm({ onSubmit }) {
@@ -29,4 +30,12 @@ export default function NewTaskForm({ onSubmit }) {
       </form>
     </header>
   )
+}
+
+NewTaskForm.propTypes = {
+  onSubmit: PropTypes.func
+}
+
+NewTaskForm.defaultProps = {
+  onSubmit: () => {}
 }

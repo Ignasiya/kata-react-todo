@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import './tasks-filter.css'
 
 export default function TasksFilter({ onFilterChange, selectFilter }) {
@@ -20,4 +21,14 @@ export default function TasksFilter({ onFilterChange, selectFilter }) {
       })}
     </ul>
   )
+}
+
+TasksFilter.propTypes = {
+  onFilterChange: PropTypes.func,
+  selectFilter: PropTypes.string
+}
+
+TasksFilter.defaultProps = {
+  selectFilter: 'All',
+  onFilterChange: () => {}
 }

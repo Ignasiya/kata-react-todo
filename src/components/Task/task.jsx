@@ -58,8 +58,17 @@ export default function Task({ description, created, completed, onCompeted, onDe
 }
 
 Task.propTypes = {
-  description: PropTypes.string,
-  created: PropTypes.number,
+  description: PropTypes.string.isRequired,
+  created: PropTypes.number.isRequired,
   completed: PropTypes.bool,
-  editing: PropTypes.bool
+  onCompeted: PropTypes.func,
+  onDeleted: PropTypes.func,
+  onUpdate: PropTypes.func
+}
+
+Task.defaultProps = {
+  completed: false,
+  onCompeted: () => {},
+  onDeleted: () => {},
+  onUpdate: () => {}
 }
