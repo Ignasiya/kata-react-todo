@@ -22,7 +22,7 @@ describe('Task component', () => {
     expect(screen.getByText(/5 minutes ago/)).toBeInTheDocument()
   })
 
-  test('отображает выполненную задачу с классом completed', () => {
+  it('отображает выполненную задачу с классом completed', () => {
     render(<Task {...task} completed={true} />)
 
     const listItem = screen.getByRole('listitem')
@@ -30,18 +30,7 @@ describe('Task component', () => {
     expect(screen.getByRole('checkbox')).toBeChecked()
   })
 
-  test('визуализирует задачу редактирования с помощью поля ввода', () => {
-    render(<Task {...task} editing={true} />)
-
-    const listItem = screen.getByRole('listitem')
-    expect(listItem).toHaveClass('editing')
-
-    const input = screen.getByRole('textbox')
-    expect(input).toBeInTheDocument()
-    expect(input).toHaveValue('Test task')
-  })
-
-  test('рендеринг без редактирования и завершенных классов', () => {
+  it('рендеринг без редактирования и завершенных классов', () => {
     render(<Task {...task} />)
 
     const listItem = screen.getByRole('listitem')

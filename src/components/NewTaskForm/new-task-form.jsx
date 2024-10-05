@@ -23,7 +23,6 @@ export default function NewTaskForm({ onSubmit }) {
           type='text'
           className='new-todo'
           placeholder='What needs to be done?'
-          autoFocus
           value={newTask}
           onChange={handleChange}
         />
