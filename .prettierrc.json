@@ -11,5 +11,6 @@
   "arrowParens": "avoid",
   "endOfLine": "lf",
   "spaceBeforeFunctionParen": true,
-  "trailingComma": "none"
+  "trailingComma": "none",
+  "react-hooks/rules-of-hooks": "error"
 }
