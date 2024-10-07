@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "test": "vitest",
     "lint:fix": "eslint ./src --fix",
-    "format": "prettier --write ./src"
+    "format": "prettier --write ./src",
+    "prepare": "husky"
   },
   "lint-staged": {
     "**/*.{js,jsx}": [
