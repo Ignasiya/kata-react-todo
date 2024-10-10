@@ -1,9 +1,15 @@
 import PropTypes from 'prop-types'
 import { formatDistanceToNow } from 'date-fns'
 import { useState } from 'react'
-import './task.css'
 
-export default function Task({ description, created, completed, onCompeted, onDeleted, onUpdate }) {
+export default function Task({
+  description,
+  created,
+  completed = false,
+  onCompeted,
+  onDeleted,
+  onUpdate
+}) {
   const timeAgo = formatDistanceToNow(created, { addSuffix: true })
 
   const [editing, setEditing] = useState(false)
@@ -36,8 +42,13 @@ export default function Task({ description, created, completed, onCompeted, onDe
           readOnly
         />
         <label>
-          <span className='description'>{description}</span>
-          <span className='created'>created {timeAgo}</span>
+          <span className='title'>{description}</span>
+          <span className='description'>
+            <button className='icon icon-play'></button>
+            <button className='icon icon-pause'></button>
+            12:25
+          </span>
+          <span className='description'>created {timeAgo}</span>
         </label>
         <button className='icon icon-edit' onClick={handleEdit}></button>
         <button className='icon icon-destroy' onClick={onDeleted}></button>
@@ -64,11 +75,4 @@ Task.propTypes = {
   onCompeted: PropTypes.func,
   onDeleted: PropTypes.func,
   onUpdate: PropTypes.func
-}
-
-Task.defaultProps = {
-  completed: false,
-  onCompeted: () => {},
-  onDeleted: () => {},
-  onUpdate: () => {}
 }

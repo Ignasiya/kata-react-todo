@@ -4,7 +4,6 @@ import TaskList from '@/components/TaskList'
 import Footer from '@/components/Footer'
 import TasksFilter from '@/components/TasksFilter'
 import { v4 as uuidv4 } from 'uuid'
-import './task-layout.css'
 
 export default function TaskLayout() {
   const [tasks, setTasks] = useState([])

@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import PropTypes from 'prop-types'
-import './new-task-form.css'
 
 export default function NewTaskForm({ onSubmit }) {
   const [newTask, setNewTask] = useState('')
@@ -18,14 +17,16 @@ export default function NewTaskForm({ onSubmit }) {
   return (
     <header className='header'>
       <h1>todos</h1>
-      <form onSubmit={handleSubmit}>
+      <form className='new-todo-form' onSubmit={handleSubmit}>
         <input
           type='text'
           className='new-todo'
-          placeholder='What needs to be done?'
+          placeholder='Task'
           value={newTask}
           onChange={handleChange}
         />
+        <input type='text' className='new-todo-form__timer' placeholder='Min' />
+        <input type='text' className='new-todo-form__timer' placeholder='Sec' />
       </form>
     </header>
   )
@@ -33,8 +34,4 @@ export default function NewTaskForm({ onSubmit }) {
 
 NewTaskForm.propTypes = {
   onSubmit: PropTypes.func
-}
-
-NewTaskForm.defaultProps = {
-  onSubmit: () => {}
 }

@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types'
 import Task from '@/components/Task'
-import './task-list.css'
 
-export default function TaskList({ tasks, onCompeted, onDeleted, onUpdate }) {
+export default function TaskList({ tasks = [], onCompeted, onDeleted, onUpdate }) {
   return (
     <ul className='todo-list'>
       {tasks.map(task => {
@@ -33,11 +32,4 @@ TaskList.propTypes = {
   onCompeted: PropTypes.func,
   onDeleted: PropTypes.func,
   onUpdate: PropTypes.func
-}
-
-TaskList.defaultProps = {
-  tasks: [],
-  onCompeted: () => {},
-  onDeleted: () => {},
-  onUpdate: () => {}
 }

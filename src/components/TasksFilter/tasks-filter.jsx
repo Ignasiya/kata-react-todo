@@ -1,17 +1,16 @@
 import PropTypes from 'prop-types'
-import './tasks-filter.css'
 
-export default function TasksFilter({ onFilterChange, selectFilter }) {
+export default function TasksFilter({ onFilterChange, selectFilter = 'All' }) {
   const labels = ['All', 'Active', 'Completed']
 
   return (
     <ul className='filters'>
       {labels.map(label => {
         return (
-          <li key={label} className='filters__item'>
+          <li key={label}>
             <button
               type='button'
-              className={`filters__btn ${selectFilter === label ? 'selected' : ''}`}
+              className={selectFilter === label ? 'selected' : ''}
               onClick={() => onFilterChange(label)}
             >
               {label}
@@ -26,9 +25,4 @@ export default function TasksFilter({ onFilterChange, selectFilter }) {
 TasksFilter.propTypes = {
   onFilterChange: PropTypes.func,
   selectFilter: PropTypes.string
-}
-
-TasksFilter.defaultProps = {
-  selectFilter: 'All',
-  onFilterChange: () => {}
 }
