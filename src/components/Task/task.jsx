@@ -1,13 +1,32 @@
 import PropTypes from 'prop-types'
 import { formatDistanceToNow } from 'date-fns'
-import { useState } from 'react'
-import './task.css'
+import { useState, useEffect } from 'react'
+import Timer from '@/components/Timer'
+import TaskEditor from '@/components/TaskEditor'
 
-export default function Task({ description, created, completed, onCompeted, onDeleted, onUpdate }) {
-  const timeAgo = formatDistanceToNow(created, { addSuffix: true })
-
+export default function Task({
+  description,
+  created,
+  time,
+  running,
+  completed = false,
+  onComplete,
+  onDelete,
+  onUpdate,
+  startTimer,
+  stopTimer
+}) {
+  const [createdAlert, setCreatedAlert] = useState(
+    formatDistanceToNow(created, { addSuffix: true })
+  )
   const [editing, setEditing] = useState(false)
-  const [newDescription, setNewDescription] = useState(description)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCreatedAlert(formatDistanceToNow(created, { addSuffix: true }))
+    }, 60000)
+    return () => clearInterval(interval)
+  }, [created])
 
   const handleEdit = () => {
     if (!completed) {
@@ -15,14 +34,13 @@ export default function Task({ description, created, completed, onCompeted, onDe
     }
   }
 
-  const handleSubmit = event => {
-    event.preventDefault()
+  const handleSave = updatedDescription => {
+    onUpdate(updatedDescription)
     setEditing(false)
-    if (newDescription) onUpdate(newDescription)
   }
 
-  const handleInputChange = event => {
-    setNewDescription(event.target.value)
+  const handleCancel = () => {
+    setEditing(false)
   }
 
   return (
@@ -32,26 +50,21 @@ export default function Task({ description, created, completed, onCompeted, onDe
           className='toggle'
           type='checkbox'
           checked={completed}
-          onClick={onCompeted}
+          onClick={onComplete}
           readOnly
         />
         <label>
-          <span className='description'>{description}</span>
-          <span className='created'>created {timeAgo}</span>
+          <span className='title'>{description}</span>
+
+          <Timer time={time} running={running} onStart={startTimer} onStop={stopTimer} />
+
+          <span className='description'>created {createdAlert}</span>
         </label>
         <button className='icon icon-edit' onClick={handleEdit}></button>
-        <button className='icon icon-destroy' onClick={onDeleted}></button>
+        <button className='icon icon-destroy' onClick={onDelete}></button>
       </div>
       {editing && (
-        <form onSubmit={handleSubmit}>
-          <input
-            type='text'
-            className='edit'
-            defaultValue={description}
-            value={newDescription}
-            onChange={handleInputChange}
-          />
-        </form>
+        <TaskEditor description={description} onSave={handleSave} onCancel={handleCancel} />
       )}
     </li>
   )
@@ -59,16 +72,13 @@ export default function Task({ description, created, completed, onCompeted, onDe
 
 Task.propTypes = {
   description: PropTypes.string.isRequired,
-  created: PropTypes.number.isRequired,
+  created: PropTypes.number,
+  time: PropTypes.number,
+  running: PropTypes.bool,
   completed: PropTypes.bool,
-  onCompeted: PropTypes.func,
-  onDeleted: PropTypes.func,
+  startTimer: PropTypes.func,
+  stopTimer: PropTypes.func,
+  onComplete: PropTypes.func,
+  onDelete: PropTypes.func,
   onUpdate: PropTypes.func
-}
-
-Task.defaultProps = {
-  completed: false,
-  onCompeted: () => {},
-  onDeleted: () => {},
-  onUpdate: () => {}
 }

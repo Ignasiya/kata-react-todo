@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import './footer.css'
 
 export default function Footer({ children, count, onAllCompleateDeleted }) {
   return (
@@ -19,10 +18,4 @@ Footer.propTypes = {
   children: PropTypes.node,
   count: PropTypes.number,
   onAllCompleateDeleted: PropTypes.func
-}
-
-Footer.defaultProps = {
-  children: null,
-  count: 0,
-  onAllCompleateDeleted: () => {}
 }

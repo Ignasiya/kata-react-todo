@@ -1,8 +1,14 @@
 import PropTypes from 'prop-types'
 import Task from '@/components/Task'
-import './task-list.css'
 
-export default function TaskList({ tasks, onCompeted, onDeleted, onUpdate }) {
+export default function TaskList({
+  tasks = [],
+  onComplete,
+  onDelete,
+  onUpdate,
+  startTimer,
+  stopTimer
+}) {
   return (
     <ul className='todo-list'>
       {tasks.map(task => {
@@ -11,9 +17,11 @@ export default function TaskList({ tasks, onCompeted, onDeleted, onUpdate }) {
           <Task
             key={id}
             {...taskData}
-            onCompeted={() => onCompeted(id)}
-            onDeleted={() => onDeleted(id)}
+            onComplete={() => onComplete(id)}
+            onDelete={() => onDelete(id)}
             onUpdate={updatedText => onUpdate(id, updatedText)}
+            startTimer={() => startTimer(id)}
+            stopTimer={() => stopTimer(id)}
           />
         )
       })}
@@ -24,20 +32,16 @@ export default function TaskList({ tasks, onCompeted, onDeleted, onUpdate }) {
 TaskList.propTypes = {
   tasks: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      created: PropTypes.number.isRequired,
-      description: PropTypes.string.isRequired,
-      completed: PropTypes.bool.isRequired
+      id: PropTypes.string,
+      created: PropTypes.number,
+      time: PropTypes.number,
+      description: PropTypes.string,
+      completed: PropTypes.bool
     })
   ).isRequired,
-  onCompeted: PropTypes.func,
-  onDeleted: PropTypes.func,
-  onUpdate: PropTypes.func
-}
-
-TaskList.defaultProps = {
-  tasks: [],
-  onCompeted: () => {},
-  onDeleted: () => {},
-  onUpdate: () => {}
+  onComplete: PropTypes.func,
+  onDelete: PropTypes.func,
+  onUpdate: PropTypes.func,
+  startTimer: PropTypes.func,
+  stopTimer: PropTypes.func
 }
