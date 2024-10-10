@@ -1,74 +1,38 @@
-import { useState } from 'react'
 import NewTaskForm from '@/components/NewTaskForm'
 import TaskList from '@/components/TaskList'
 import Footer from '@/components/Footer'
 import TasksFilter from '@/components/TasksFilter'
-import { v4 as uuidv4 } from 'uuid'
+import { useTasks } from './useTasks'
 
 export default function TaskLayout() {
-  const [tasks, setTasks] = useState([])
-  const [filter, setFilter] = useState('All')
-
-  const handleFilterChange = filter => {
-    setFilter(filter)
-  }
-
-  const handleCompleted = id => {
-    setTasks(tasks.map(task => (task.id === id ? { ...task, completed: !task.completed } : task)))
-  }
-
-  const handleDeleted = id => {
-    setTasks(tasks.filter(task => task.id !== id))
-  }
-
-  const handleSubmit = text => {
-    setTasks([
-      ...tasks,
-      {
-        id: uuidv4(),
-        description: text,
-        created: Date.now(),
-        completed: false
-      }
-    ])
-    setFilter('All')
-  }
-
-  const handelUpdated = (id, updatedDescription) => {
-    setTasks(
-      tasks.map(task => (task.id === id ? { ...task, description: updatedDescription } : task))
-    )
-  }
-
-  const handelAllCompleateDeleted = () => {
-    setTasks(tasks.filter(task => !task.completed))
-  }
-
-  const filteredTasks = tasks.filter(task => {
-    switch (filter) {
-      case 'Active':
-        return !task.completed
-      case 'Completed':
-        return task.completed
-      default:
-        return true
-    }
-  })
-
-  const countCompleated = tasks.filter(task => task.completed).length
+  const {
+    tasks,
+    addTask,
+    deleteTask,
+    toggleCompleteTask,
+    updateTask,
+    deleteAllCompletedTasks,
+    startTimer,
+    stopTimer,
+    filter,
+    setFilter,
+    completedTasksCount
+  } = useTasks()
 
   return (
     <section className='todoapp'>
-      <NewTaskForm onSubmit={handleSubmit} />
+      <NewTaskForm onSubmit={addTask} />
       <section className='main'>
         <TaskList
-          tasks={filteredTasks}
-          onCompeted={handleCompleted}
-          onDeleted={handleDeleted}
-          onUpdate={handelUpdated}
+          tasks={tasks}
+          onComplete={toggleCompleteTask}
+          onDelete={deleteTask}
+          onUpdate={updateTask}
+          startTimer={startTimer}
+          stopTimer={stopTimer}
         />
-        <Footer count={countCompleated} onAllCompleateDeleted={handelAllCompleateDeleted}>
-          <TasksFilter onFilterChange={handleFilterChange} selectFilter={filter} />
+        <Footer count={completedTasksCount} onAllCompleteDeleted={deleteAllCompletedTasks}>
+          <TasksFilter onFilterChange={setFilter} selectedFilter={filter} />
         </Footer>
       </section>
     </section>

@@ -53,7 +53,7 @@
   position: relative;
   margin: 0;
   width: 100%;
-  font-size: 24px;
+  font-size: 20px;
   font-family: inherit;
   font-weight: inherit;
   line-height: 1.4em;
@@ -258,10 +258,7 @@
   font-size: 18px;
   width: 18px;
   height: 18px;
-}
-
-.todo-list li .icon-play {
-  font-size: 15px;
+  margin-right: 5px;
 }
 
 .icon-pause:after {
