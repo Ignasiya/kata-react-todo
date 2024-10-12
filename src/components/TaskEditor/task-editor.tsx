@@ -1,14 +1,19 @@
 import { useState } from 'react'
-import PropTypes from 'prop-types'
 
-export default function TaskEditor({ description, onSave, onCancel }) {
+interface TaskEditorProps {
+  description: string
+  onSave: (description: string) => void
+  onCancel: () => void
+}
+
+export default function TaskEditor({ description, onSave, onCancel }: TaskEditorProps) {
   const [newDescription, setNewDescription] = useState(description)
 
-  const handleInputChange = event => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNewDescription(event.target.value)
   }
 
-  const handleKeyDown = event => {
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Escape') {
       setNewDescription(description)
       onCancel()
@@ -31,10 +36,4 @@ export default function TaskEditor({ description, onSave, onCancel }) {
       onBlur={handleBlur}
     />
   )
-}
-
-TaskEditor.propTypes = {
-  description: PropTypes.string,
-  onSave: PropTypes.func,
-  onCancel: PropTypes.func
 }

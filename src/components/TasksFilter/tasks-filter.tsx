@@ -1,6 +1,9 @@
-import PropTypes from 'prop-types'
+interface TasksFilterProps {
+  selectedFilter: string
+  onFilterChange: (filter: string) => void
+}
 
-export default function TasksFilter({ onFilterChange, selectedFilter = 'All' }) {
+export default function TasksFilter({ onFilterChange, selectedFilter = 'All' }: TasksFilterProps) {
   const labels = ['All', 'Active', 'Completed']
 
   return (
@@ -20,9 +23,4 @@ export default function TasksFilter({ onFilterChange, selectedFilter = 'All' }) 
       })}
     </ul>
   )
-}
-
-TasksFilter.propTypes = {
-  onFilterChange: PropTypes.func,
-  selectedFilter: PropTypes.string
 }

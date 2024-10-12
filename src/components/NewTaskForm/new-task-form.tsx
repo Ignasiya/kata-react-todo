@@ -1,28 +1,31 @@
 import { useState } from 'react'
-import PropTypes from 'prop-types'
 
-export default function NewTaskForm({ onSubmit }) {
-  const [newTask, setNewTask] = useState('')
-  const [minutes, setMinutes] = useState(0)
-  const [seconds, setSeconds] = useState(0)
+interface NewTaskFormProps {
+  onSubmit: (description: string, time: number) => void
+}
 
-  const handleChange = event => {
+export default function NewTaskForm({ onSubmit }: NewTaskFormProps) {
+  const [newTask, setNewTask] = useState<string>('')
+  const [minutes, setMinutes] = useState<number>(0)
+  const [seconds, setSeconds] = useState<number>(0)
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNewTask(event.target.value)
   }
 
-  const handleMinutesChange = event => {
-    setMinutes(event.target.value)
+  const handleMinutesChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setMinutes(+event.target.value)
   }
 
-  const handleSecondsChange = event => {
-    setSeconds(event.target.value)
+  const handleSecondsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSeconds(+event.target.value)
   }
 
-  const handleSubmit = event => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    const totalSeconds = parseInt(minutes) * 60 + parseInt(seconds)
+    const totalSeconds = minutes * 60 + seconds
 
-    onSubmit(newTask, +totalSeconds)
+    onSubmit(newTask, totalSeconds)
 
     setNewTask('')
     setMinutes(0)
@@ -63,8 +66,4 @@ export default function NewTaskForm({ onSubmit }) {
       </form>
     </header>
   )
-}
-
-NewTaskForm.propTypes = {
-  onSubmit: PropTypes.func
 }

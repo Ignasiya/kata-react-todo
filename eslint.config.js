@@ -8,23 +8,22 @@ import eslintJest from 'eslint-plugin-jest'
 import html from 'eslint-plugin-html'
 import importPlugin from 'eslint-plugin-import'
 import jsxA11y from 'eslint-plugin-jsx-a11y'
+import tsPlugin from '@typescript-eslint/eslint-plugin'
+import tsParser from '@typescript-eslint/parser'
 
 export default [
   { ignores: ['node_modules', 'dist', 'vite.config.js'] },
   {
-    files: ['**/*.{js,jsx,html}'],
+    files: ['**/*.{ts,tsx,js,jsx,html}'],
     languageOptions: {
-      ecmaVersion: 2021,
+      parser: tsParser,
+      ecmaVersion: 'latest',
+      sourceType: 'module',
       globals: {
         ...globals.browser,
         ...globals.jest,
         vi: 'readonly',
         __dirname: 'readonly'
-      },
-      parserOptions: {
-        ecmaVersion: 'latest',
-        ecmaFeatures: { jsx: true },
-        sourceType: 'module'
       }
     },
     settings: {
@@ -33,8 +32,7 @@ export default [
       },
       'import/resolver': {
         node: {
-          extensions: ['.js', '.jsx'],
-          moduleDirectory: ['node_modules', 'src/']
+          extensions: ['.js', '.jsx', '.ts', '.tsx']
         }
       }
     },
@@ -45,7 +43,8 @@ export default [
       jest: eslintJest,
       html,
       import: importPlugin,
-      'jsx-a11y': jsxA11y
+      'jsx-a11y': jsxA11y,
+      '@typescript-eslint': tsPlugin
     },
     rules: {
       ...js.configs.recommended.rules,
@@ -58,7 +57,8 @@ export default [
       'react/jsx-no-target-blank': 'off',
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
       ...eslintConfigPrettier.rules,
-      ...eslintJest.configs.recommended.rules
+      ...eslintJest.configs.recommended.rules,
+      ...tsPlugin.configs.recommended.rules
     }
   }
 ]

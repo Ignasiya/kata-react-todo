@@ -1,8 +1,20 @@
-import PropTypes from 'prop-types'
 import { formatDistanceToNow } from 'date-fns'
 import { useState, useEffect } from 'react'
 import Timer from '@/components/Timer'
 import TaskEditor from '@/components/TaskEditor'
+
+interface TaskProps {
+  description: string
+  created: number
+  time: number
+  running: boolean
+  completed: boolean
+  onComplete: () => void
+  onDelete: () => void
+  onUpdate: (description: string) => void
+  startTimer: () => void
+  stopTimer: () => void
+}
 
 export default function Task({
   description,
@@ -15,11 +27,11 @@ export default function Task({
   onUpdate,
   startTimer,
   stopTimer
-}) {
-  const [createdAlert, setCreatedAlert] = useState(
+}: TaskProps) {
+  const [createdAlert, setCreatedAlert] = useState<string>(
     formatDistanceToNow(created, { addSuffix: true })
   )
-  const [editing, setEditing] = useState(false)
+  const [editing, setEditing] = useState<boolean>(false)
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -34,7 +46,7 @@ export default function Task({
     }
   }
 
-  const handleSave = updatedDescription => {
+  const handleSave = (updatedDescription: string) => {
     onUpdate(updatedDescription)
     setEditing(false)
   }
@@ -68,17 +80,4 @@ export default function Task({
       )}
     </li>
   )
-}
-
-Task.propTypes = {
-  description: PropTypes.string.isRequired,
-  created: PropTypes.number,
-  time: PropTypes.number,
-  running: PropTypes.bool,
-  completed: PropTypes.bool,
-  startTimer: PropTypes.func,
-  stopTimer: PropTypes.func,
-  onComplete: PropTypes.func,
-  onDelete: PropTypes.func,
-  onUpdate: PropTypes.func
 }
