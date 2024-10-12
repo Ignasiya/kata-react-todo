@@ -1,6 +1,10 @@
-import PropTypes from 'prop-types'
+interface FooterProps {
+  count: number
+  children: React.ReactNode
+  onAllCompleteDeleted: () => void
+}
 
-export default function Footer({ children, count, onAllCompleteDeleted }) {
+export default function Footer({ children, count, onAllCompleteDeleted }: FooterProps) {
   return (
     <footer className='footer'>
       <span className='todo-count'>{count} items left</span>
@@ -12,10 +16,4 @@ export default function Footer({ children, count, onAllCompleteDeleted }) {
       </button>
     </footer>
   )
-}
-
-Footer.propTypes = {
-  children: PropTypes.node,
-  count: PropTypes.number,
-  onAllCompleteDeleted: PropTypes.func
 }

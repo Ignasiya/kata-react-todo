@@ -1,5 +1,20 @@
-import PropTypes from 'prop-types'
 import Task from '@/components/Task'
+
+interface TaskListProps {
+  tasks: Array<{
+    id: string
+    description: string
+    created: number
+    time: number
+    running: boolean
+    completed: boolean
+  }>
+  onComplete: (id: string) => void
+  onDelete: (id: string) => void
+  onUpdate: (id: string, description: string) => void
+  startTimer: (id: string) => void
+  stopTimer: (id: string) => void
+}
 
 export default function TaskList({
   tasks = [],
@@ -8,7 +23,7 @@ export default function TaskList({
   onUpdate,
   startTimer,
   stopTimer
-}) {
+}: TaskListProps) {
   return (
     <ul className='todo-list'>
       {tasks.map(task => {
@@ -19,7 +34,7 @@ export default function TaskList({
             {...taskData}
             onComplete={() => onComplete(id)}
             onDelete={() => onDelete(id)}
-            onUpdate={updatedText => onUpdate(id, updatedText)}
+            onUpdate={(updatedText: string) => onUpdate(id, updatedText)}
             startTimer={() => startTimer(id)}
             stopTimer={() => stopTimer(id)}
           />
@@ -27,21 +42,4 @@ export default function TaskList({
       })}
     </ul>
   )
-}
-
-TaskList.propTypes = {
-  tasks: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string,
-      created: PropTypes.number,
-      time: PropTypes.number,
-      description: PropTypes.string,
-      completed: PropTypes.bool
-    })
-  ).isRequired,
-  onComplete: PropTypes.func,
-  onDelete: PropTypes.func,
-  onUpdate: PropTypes.func,
-  startTimer: PropTypes.func,
-  stopTimer: PropTypes.func
 }

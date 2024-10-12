@@ -1,7 +1,12 @@
-import PropTypes from 'prop-types'
+interface TimerProps {
+  time: number
+  running: boolean
+  onStart: () => void
+  onStop: () => void
+}
 
-export default function Timer({ time, running, onStart, onStop }) {
-  const formatTime = totalSeconds => {
+export default function Timer({ time, running, onStart, onStop }: TimerProps) {
+  const formatTime = (totalSeconds: number) => {
     const mins = Math.floor(totalSeconds / 60)
     const secs = totalSeconds % 60
     return `${mins < 10 ? `0${mins}` : mins}:${secs < 10 ? `0${secs}` : secs}`
@@ -17,11 +22,4 @@ export default function Timer({ time, running, onStart, onStop }) {
       {formatTime(time)}
     </span>
   )
-}
-
-Timer.propTypes = {
-  time: PropTypes.number,
-  running: PropTypes.bool,
-  onStart: PropTypes.func,
-  onStop: PropTypes.func
 }
